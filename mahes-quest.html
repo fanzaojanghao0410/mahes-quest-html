@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahes Quest - Petualangan Kebijaksanaan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="mahes-quest.css">
+</head>
+<body>
+    <div class="game-container">
+
+        <!-- Landing Page -->
+        <section id="landing" class="scene active">
+            <div class="content">
+                <h1 class="game-title">Mahes Quest</h1>
+                <p class="subtitle">Petualangan Mencari Kebijaksanaan</p>
+                <div class="hero-text">
+                    <p>Dalam dunia yang penuh dengan pertanyaan,<br>hanya kebijaksanaan yang mampu menerangi jalanmu.</p>
+                </div>
+                <button class="btn btn-primary" onclick="game.startAdventure()">Mulai Petualangan</button>
+                <button class="btn btn-secondary" onclick="game.continueAdventure()">Lanjutkan Petualangan</button>
+            </div>
+        </section>
+
+        <!-- Prolog -->
+        <section id="prolog" class="scene">
+            <div class="content">
+                <h2>Prolog</h2>
+                <div class="story-box">
+                    <p>Kamu adalah seorang pencari kebijaksanaan yang memulai perjalanan spiritual melintasi empat wilayah mistis.</p>
+                    <p>Setiap langkah adalah pelajaran. Setiap pilihan membentuk jati dirimu.</p>
+                    <p>Di akhir perjalanan, <strong>Mahkota Kebijaksanaan</strong> menanti mereka yang layak.</p>
+                    <p class="highlight">Atributmu akan berkembang seiring perjalanan:</p>
+                    <ul>
+                        <li><strong>Mind</strong> - Kecerdasan dan logika</li>
+                        <li><strong>Heart</strong> - Empati dan kebaikan</li>
+                        <li><strong>Courage</strong> - Keberanian dan keteguhan</li>
+                    </ul>
+                </div>
+                <button class="btn btn-primary" onclick="game.showMap()">Mulai Perjalanan</button>
+            </div>
+        </section>
+
+        <!-- Map -->
+        <section id="map" class="scene">
+            <div class="content">
+                <div class="player-stats">
+                    <div class="stat-row">
+                        <span>Level: <strong id="player-level">1</strong></span>
+                        <span>XP: <strong id="player-xp">0</strong>/100</span>
+                    </div>
+                    <div class="xp-bar">
+                        <div class="xp-fill" id="xp-fill"></div>
+                    </div>
+                    <div class="attributes">
+                        <span>Mind: <strong id="attr-mind">0</strong></span>
+                        <span>Heart: <strong id="attr-heart">0</strong></span>
+                        <span>Courage: <strong id="attr-courage">0</strong></span>
+                    </div>
+                </div>
+
+                <h2>Peta Dunia Mahes</h2>
+                <p class="map-desc">Pilih wilayah yang ingin kamu jelajahi</p>
+
+                <div class="map-grid">
+                    <div class="area-card" onclick="game.enterArea('hutan')">
+                        <div class="area-icon">🌲</div>
+                        <h3>Hutan Tenang</h3>
+                        <p>Tempat refleksi dan kedamaian</p>
+                        <span class="progress" id="progress-hutan">0/5</span>
+                    </div>
+                    <div class="area-card" onclick="game.enterArea('danau')">
+                        <div class="area-icon">🌊</div>
+                        <h3>Danau Jernih</h3>
+                        <p>Cermin batin yang mengungkap kebenaran</p>
+                        <span class="progress" id="progress-danau">0/5</span>
+                    </div>
+                    <div class="area-card" onclick="game.enterArea('kota')">
+                        <div class="area-icon">🏛️</div>
+                        <h3>Kota Bijaksana</h3>
+                        <p>Pusat pengetahuan dan interaksi</p>
+                        <span class="progress" id="progress-kota">0/5</span>
+                    </div>
+                    <div class="area-card" onclick="game.enterArea('gunung')">
+                        <div class="area-icon">⛰️</div>
+                        <h3>Gunung Keberanian</h3>
+                        <p>Ujian keteguhan dan kekuatan hati</p>
+                        <span class="progress" id="progress-gunung">0/5</span>
+                    </div>
+                </div>
+
+                <div class="map-actions">
+                    <button class="btn btn-secondary" onclick="game.showInventory()">Lihat Inventori</button>
+                    <button class="btn btn-secondary" onclick="game.showSettings()">Pengaturan</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question Scene -->
+        <section id="question" class="scene">
+            <div class="content">
+                <div class="question-header">
+                    <button class="btn-back" onclick="game.showMap()">← Kembali ke Map</button>
+                    <div class="area-badge" id="current-area">Hutan Tenang</div>
+                    <div class="question-counter" id="question-counter">1/5</div>
+                </div>
+
+                <div class="question-box">
+                    <p class="question-text" id="question-text">Pertanyaan akan muncul di sini...</p>
+                </div>
+
+                <div class="options-container" id="options-container">
+                    <!-- Options will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Temple -->
+        <section id="temple" class="scene">
+            <div class="content">
+                <h2>Kuil Kebijaksanaan</h2>
+                <div class="story-box">
+                    <p>Kamu telah menyelesaikan semua perjalanan.</p>
+                    <p>Kini saatnya menghadapi ujian terakhir di Kuil Kebijaksanaan.</p>
+                    <p>Tiga pertanyaan terakhir akan menentukan apakah kamu layak menerima Mahkota Kebijaksanaan.</p>
+                </div>
+                <button class="btn btn-primary" onclick="game.enterTemple()">Masuki Kuil</button>
+            </div>
+        </section>
+
+        <!-- Ending -->
+        <section id="ending" class="scene">
+            <div class="content">
+                <h1 class="ending-title">Selamat!</h1>
+                <div class="crown-icon">👑</div>
+                <div class="story-box">
+                    <h2 id="ending-type">Mahkota Kebijaksanaan</h2>
+                    <p id="ending-text">Teks ending akan muncul di sini...</p>
+                    <div class="final-stats">
+                        <h3>Atribut Akhir:</h3>
+                        <p>Mind: <strong id="final-mind">0</strong></p>
+                        <p>Heart: <strong id="final-heart">0</strong></p>
+                        <p>Courage: <strong id="final-courage">0</strong></p>
+                        <p>Level: <strong id="final-level">1</strong></p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="game.resetAdventure()">Mulai Petualangan Baru</button>
+            </div>
+        </section>
+
+        <!-- Inventory Modal -->
+        <div id="inventory-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Inventori</h3>
+                    <span class="close" onclick="game.closeModal('inventory-modal')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div id="inventory-list">
+                        <p class="empty-state">Belum ada item yang dikumpulkan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Up Modal -->
+        <div id="levelup-modal" class="modal">
+            <div class="modal-content levelup-content">
+                <div class="modal-header">
+                    <h3>🎉 Level Up!</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Kamu naik ke level <strong id="new-level">2</strong>!</p>
+                    <p>Pilih satu atribut untuk ditingkatkan:</p>
+                    <div class="attribute-choices">
+                        <button class="btn btn-attribute" onclick="game.selectAttribute('mind')">
+                            <span>🧠</span>
+                            <strong>Mind</strong>
+                            <small>Kecerdasan</small>
+                        </button>
+                        <button class="btn btn-attribute" onclick="game.selectAttribute('heart')">
+                            <span>❤️</span>
+                            <strong>Heart</strong>
+                            <small>Empati</small>
+                        </button>
+                        <button class="btn btn-attribute" onclick="game.selectAttribute('courage')">
+                            <span>⚔️</span>
+                            <strong>Courage</strong>
+                            <small>Keberanian</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Pengaturan</h3>
+                    <span class="close" onclick="game.closeModal('settings-modal')">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-primary btn-full" onclick="game.saveProgress()">💾 Simpan Progres</button>
+                    <button class="btn btn-danger btn-full" onclick="game.confirmReset()">🔄 Reset Petualangan</button>
+                    <p class="info-text">Progres tersimpan otomatis di browser Anda</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="mahes-quest.js"></script>
+</body>
+</html>
